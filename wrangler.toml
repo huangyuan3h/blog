@@ -1,0 +1,7 @@
+name = "karios-blog"
+compatibility_date = "2026-08-26"
+pages_build_output_dir = ".vercel/output/static"
+
+# Cloudflare Pages — 免费架构
+# 静态: wrangler pages deploy out
+# Worker: opennextjs-cloudflare deploy
