@@ -1,7 +1,8 @@
 name = "karios-blog"
 compatibility_date = "2026-08-26"
+workers_dev = false
 
-# OpenNext Workers (Free tier)
+# OpenNext Workers (Free tier) — 生产域 blog.it-t.xyz 需在 Dashboard > Workers > karios-blog > Settings > Domains 绑定
 [assets]
 directory = ".open-next/assets"
 not_found_handling = "single-page-application"

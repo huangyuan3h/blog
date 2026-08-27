@@ -21,11 +21,9 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm build
-      - name: Deploy to Cloudflare Pages
-        uses: cloudflare/pages-action@v1
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: 3b6e5b7b321340e093ee2a23fd6126ca
-          projectName: blog
-          directory: out
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+      - run: pnpm exec opennextjs-cloudflare build
+      - name: Deploy to Cloudflare Workers (keep blog.it-t.xyz)
+        run: pnpm exec wrangler deploy --config wrangler.toml
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: 3b6e5b7b321340e093ee2a23fd6126ca
