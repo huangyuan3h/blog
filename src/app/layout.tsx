@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Karios Lab — 回测手记",
-  description: "从单市场到多资产，记录每一次 walk-forward 与真实交易的距离",
+  title: "Blog — 简洁 · 美观 · 通用",
+  description: "一个基于 Next.js + shadcn + Cloudflare 的通用美观博客，支持 Markdown / 图片 / Youtube",
 };
 
 function Header() {
@@ -22,11 +23,12 @@ function Header() {
     <header className="sticky top-0 z-10 border-b border-[var(--border)] bg-[var(--background)]/80 backdrop-blur">
       <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
         <a href="/" className="text-sm font-semibold tracking-tight">
-          Karios Lab<span className="ml-2 text-xs font-normal text-[var(--muted)]">回测手记</span>
+          Blog
         </a>
-        <nav className="flex gap-4 text-xs text-[var(--muted)]">
-          <a href="/" className="hover:text-[var(--foreground)]">文章</a>
-          <a href="https://github.com/huangyuan3h/blog" className="hover:text-[var(--foreground)]">GitHub</a>
+        <nav className="flex items-center gap-4 text-xs text-[var(--muted)]">
+          <a href="/" className="hover:text-[var(--foreground)]">首页</a>
+          <a href="/books" className="hover:text-[var(--foreground)]">书架</a>
+          <a href="/admin/login" className="rounded-full border border-[var(--border)] bg-white px-3 py-1 hover:bg-stone-50">Admin</a>
         </nav>
       </div>
     </header>
@@ -35,22 +37,21 @@ function Header() {
 
 function Footer() {
   return (
-    <footer className="border-t border-[var(--border)] py-8 text-center text-xs text-[var(--muted)]">
-      部署于 Cloudflare Pages · 免费架构 · 图片/表格全支持
+    <footer className="border-t border-[var(--border)] py-6 text-center text-xs text-[var(--muted)]">
+      © {new Date().getFullYear()} Blog · Crafted with Next.js & shadcn
     </footer>
   );
 }
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html
-      lang="zh-CN"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
+    <html lang="zh-CN" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`} suppressHydrationWarning>
       <body className="min-h-full flex flex-col">
-        <Header />
-        <main className="mx-auto w-full max-w-5xl flex-1 px-6 py-8">{children}</main>
-        <Footer />
+        <ThemeProvider>
+          <Header />
+          <main className="mx-auto w-full max-w-5xl flex-1 px-6 py-8">{children}</main>
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );

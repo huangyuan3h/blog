@@ -1,7 +1,21 @@
 name = "karios-blog"
 compatibility_date = "2026-08-26"
-pages_build_output_dir = ".vercel/output/static"
 
-# Cloudflare Pages — 免费架构
-# 静态: wrangler pages deploy out
-# Worker: opennextjs-cloudflare deploy
+# OpenNext Workers (Free tier)
+[assets]
+directory = ".open-next/assets"
+not_found_handling = "single-page-application"
+
+# D1 — 免费 5GB / 5M 读 / 10万写 /天
+[[d1_databases]]
+binding = "DB"
+database_name = "karios-blog-db"
+database_id = "f7272194-f3c2-4f54-8724-2e90efcf0a8d"
+
+# R2 — 免费 10GB / 10M 请求 (待在 Dashboard 启用 R2 后解注释)
+# [[r2_buckets]]
+# binding = "BLOG_MEDIA"
+# bucket_name = "karios-blog-media"
+
+[vars]
+MEDIA_PUBLIC_URL = "/media"
